@@ -16,7 +16,7 @@ mongoose.connect('mongodb+srv://Prakash:qiPHeJ1OEhvfNxIN@cluster0.bn2zb.mongodb.
 
 const cors = require('cors');
 const corsOptions ={
-    origin:'http://localhost:3001', 
+    origin:'https://frontend-1-vzy3.onrender.com/', 
     credentials:true,            //access-control-allow-credentials:true
     optionSuccessStatus:200
 }
