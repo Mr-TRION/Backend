@@ -16,6 +16,7 @@ mongoose.connect('mongodb+srv://Prakash:qiPHeJ1OEhvfNxIN@cluster0.bn2zb.mongodb.
 
 const cors = require('cors');
 const corsOptions ={
+    // origin:'http://localhost:3001', 
     origin:'https://frontend-1-vzy3.onrender.com', 
     credentials:true,            //access-control-allow-credentials:true
     optionSuccessStatus:200
@@ -71,6 +72,26 @@ app.get('/findId/:_id', async (req, res) => {
     try {
         let data = await Dataset.findById(_id);
         res.json(data);
+    } catch (error) {
+        console.error(error);
+        return res.status(500).send(`Server error`);
+    }
+})
+
+app.get('/search/:searchText', async (req, res) => {
+    const { searchText } = req.params;
+    try {
+        if (searchText.length === 0) return;
+
+        let userPattern = new RegExp(`^${searchText}`);
+
+        const results = await Dataset.find({
+            Name: { $regex: userPattern, $options: "i" }
+          }).limit(50);
+
+          const resultsToBeSent = results.length > 0;
+
+          return res.status(200).json(resultsToBeSent.length > 0 ? resultsToBeSent : results);
     } catch (error) {
         console.error(error);
         return res.status(500).send(`Server error`);
