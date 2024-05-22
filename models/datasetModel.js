@@ -49,6 +49,9 @@ const datasetSchema = new mongoose.Schema({
     },
     Outcome: {
         type: Number,
+    },
+    Link: {
+        type: String
     }
 })
 

@@ -43,7 +43,7 @@ app.get('/home', async (req, res) => {
 app.get('/fltr', async (req, res) => {
     const {educationLevel, communityKota, sport} = req.params;
     try {
-        let size = 300;
+        let size = 100;
         let data = await Dataset.find({}).limit(size).sort({created: -1});
         res.json(data);
     } catch (error) {
